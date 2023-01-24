@@ -33,6 +33,7 @@
       defer
       src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"
     ></script>
+    <script defer src="js\script_slider.js"></script>
 
     <script defer src="js\script.js"></script>
 
@@ -178,6 +179,34 @@
         </div>
         <!-- <div class="container grid grid--2-cols"></div> -->
       </section>
+
+      <section class="section-slideshow">
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="img/lunch1.jpg" alt="" />
+          <div class="slider-text"></div>
+        </div>
+
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="img/lunch2.jpg" alt="" />
+          <div class="slider-text"></div>
+        </div>
+
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="img/lunch3.jpg" alt="" />
+          <div class="slider-text"></div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)"><</a>
+        <a class="next" onclick="plusSlides(1)">></a>
+      </section>
+      <br />
+      <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+      </div>
 
       <section class="section-meals" id="meals">
         <div class="container">

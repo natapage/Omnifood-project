@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css\general.css" />
     <link rel="stylesheet" href="css\styles.css" />
     <link rel="stylesheet" href="css\queries.css" />
+    <!-- <link rel="stylesheet" href="css\styles_slider_2.css" /> -->
+
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
@@ -34,6 +36,7 @@
       src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"
     ></script>
     <script defer src="js\script_slider.js"></script>
+    <script defer src="js\script_slider_2.js"></script>
 
     <script defer src="js\script.js"></script>
 
@@ -200,12 +203,22 @@
         </div>
         <a class="prev" onclick="plusSlides(-1)"><</a>
         <a class="next" onclick="plusSlides(1)">></a>
+        <br />
+        <div class="dots">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
       </section>
-      <br />
-      <div class="dots">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+
+      <div class="section-slideshow-2">
+        <div class="mySlides2 slide1">
+          <img src="img\lunch1.jpg" alt="" class="img" />
+          <img src="img\lunch2.jpg" alt="" class="img" />
+          <img src="img\lunch3.jpg" alt="" class="img" />
+        </div>
+        <a class="prev prev_2"><</a>
+        <a class="next next_2">></a>
       </div>
 
       <section class="section-meals" id="meals">

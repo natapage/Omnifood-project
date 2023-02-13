@@ -324,6 +324,7 @@
   background-color: #fdf2e9;
   display: grid;
   grid-template-columns: 55fr 45fr;
+  /* margin-top: 4.8 rem; */
 }
 
 .testimonials-container {
@@ -800,4 +801,66 @@
 
 .slide3 {
   left: -200%;
+}
+
+/* ***************** */
+/* SECTION PREFERENCES*/
+/* **************** */
+
+.ingredient-btn {
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: 6px 40px;
+  border-radius: 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* .ingredients-buttons {
+  /* display: flex; */
+/* row-gap: 20px; */
+/* } */
+
+.section-preferences {
+  background-color: #fdf2e9;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  padding-bottom: 4.8rem;
+  padding-top: 4.8rem;
+  padding-left: 13rem;
+  width: 100%;
+  margin-bottom: 4.8rem;
+}
+
+.like-dislike-block {
+  display: inline-block;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+.like-btn {
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: 10px 15px;
+  border-radius: 50%;
+  background-color: #51cf66;
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin-right: 8px;
+}
+
+.dislike-btn {
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: 10px 17px;
+  border-radius: 50%;
+  background-color: rgb(255, 81, 81);
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin-left: 8px;
 }

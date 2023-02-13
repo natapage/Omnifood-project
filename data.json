@@ -1,0 +1,62 @@
+[
+  {
+    "name": "rice width vegetables",
+    "ingredients": [
+      { "name": "rice", "qty": 100, "unit": "g" },
+      { "name": "avocado", "qty": 20, "unit": "g" },
+      { "name": "tomato", "qty": 30, "unit": "g" },
+      { "name": "carrot", "qty": 10, "unit": "g" },
+      { "name": "mushrooms", "qty": 50, "unit": "g" },
+      { "name": "peas", "qty": 10, "unit": "g" }
+    ]
+  },
+  {
+    "name": "steamed salmon",
+    "ingredients": [
+      { "name": "salmon", "qty": 150, "unit": "g" },
+      { "name": "poatato", "qty": 100, "unit": "g" },
+      { "name": "avocado", "qty": 30, "unit": "g" }
+    ]
+  },
+  {
+    "name": "vagatable salad",
+    "ingredients": [
+      { "name": "cucumber", "qty": 150, "unit": "g" },
+      { "name": "tomato", "qty": 100, "unit": "g" },
+      { "name": "carrot", "qty": 30, "unit": "g" },
+      { "name": "beans", "qty": 50, "unit": "g" },
+      { "name": "peas", "qty": 10, "unit": "cpl" }
+    ]
+  },
+  {
+    "name": "potato soup",
+    "ingredients": [
+      { "name": "potato", "qty": 150, "unit": "g" },
+      { "name": "beef", "qty": 100, "unit": "g" },
+      { "name": "carrot", "qty": 30, "unit": "g" },
+      { "name": "onion", "qty": 50, "unit": "g" },
+      { "name": "peas", "qty": 10, "unit": "cpl" }
+    ]
+  },
+  {
+    "name": "tuna salad",
+    "ingredients": [
+      { "name": "tuna", "qty": 150, "unit": "g" },
+      { "name": "mushrooms", "qty": 100, "unit": "g" },
+      { "name": "rice", "qty": 30, "unit": "g" },
+      { "name": "eggs", "qty": 50, "unit": "g" }
+    ]
+  },
+  {
+    "name": "chicken with vegetables",
+    "ingredients": [
+      { "name": "chicken", "qty": 150, "unit": "g" },
+      { "name": "tomatos", "qty": 100, "unit": "g" },
+      { "name": "mushrooms", "qty": 30, "unit": "g" },
+      { "name": "beans", "qty": 50, "unit": "g" },
+      { "name": "carrot", "qty": 10, "unit": "g" },
+      { "name": "avocado", "qty": 10, "unit": "g" },
+      { "name": "onion", "qty": 10, "unit": "g" }
+    ]
+  }
+]

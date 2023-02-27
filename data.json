@@ -1,6 +1,6 @@
 [
   {
-    "name": "rice width vegetables",
+    "name": "rice with vegetables",
     "ingredients": [
       { "name": "rice", "qty": 100, "unit": "g" },
       { "name": "avocado", "qty": 20, "unit": "g" },
@@ -25,7 +25,7 @@
       { "name": "tomato", "qty": 100, "unit": "g" },
       { "name": "carrot", "qty": 30, "unit": "g" },
       { "name": "beans", "qty": 50, "unit": "g" },
-      { "name": "peas", "qty": 10, "unit": "cpl" }
+      { "name": "peas", "qty": 10, "unit": "g" }
     ]
   },
   {
@@ -35,7 +35,7 @@
       { "name": "beef", "qty": 100, "unit": "g" },
       { "name": "carrot", "qty": 30, "unit": "g" },
       { "name": "onion", "qty": 50, "unit": "g" },
-      { "name": "peas", "qty": 10, "unit": "cpl" }
+      { "name": "peas", "qty": 10, "unit": "g" }
     ]
   },
   {

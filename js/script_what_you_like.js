@@ -1,21 +1,12 @@
+// getRecipies() - принимает json с рецептами и возвращает массив из объектов с рецептами
+
 // getIngredients() - принимает массив из объектов с рецептами и возвращает массив из объектов, где есть название ингредиента и статус в зависимости от выбора
 // { name, preference: "" } где preference может быть 'include' | 'exclude' | ''
 
-// getRecipies() - принимает json с рецептами и возвращает массив из объектов с рецептами
-// filterRecipies() - принимает массив из объектов рецептов и массив из ингредиентов с предпочтениями. И в зависимости от предпочтения фильтрует нужные рецепты
+// метод filterRecipies() - принимает массив из объектов рецептов и массив из ингредиентов с предпочтениями. И в зависимости от предпочтения фильтрует нужные рецепты
 
 // хочу чтобы работало так: клацаешь на + или - и ингредиент улетает вверх с соответствующим цветом фона( см. скриншот экрана в разделе выше).
 // потом если тыкнуть на эту кнопку уже помеченную красным или зеленым , она откинется обратно в список с несделанным выбором (где + и -)
-
-function getIngredients(recipies) {
-  const ingredients = [];
-
-  for (const recipe of recipies) {
-    ingredients.push(...recipe.ingredients);
-  }
-
-  return [...new Set(ingredients)].map((name) => ({ name, preference: "" })); // 'include' | 'exclude' | ''
-}
 
 async function getRecipies(path) {
   const response = await fetch(path);
@@ -25,6 +16,16 @@ async function getRecipies(path) {
     name,
     ingredients: new Set(ingredients.map((i) => i.name)), // меняем стуктуру данных на Set для более быстрого поиска в будущем
   }));
+}
+
+function getIngredients(recipies) {
+  const ingredients = [];
+
+  for (const recipe of recipies) {
+    ingredients.push(...recipe.ingredients);
+  }
+
+  return [...new Set(ingredients)].map((name) => ({ name, preference: "" })); // 'include' | 'exclude' | ''
 }
 
 class Component {
@@ -59,21 +60,72 @@ class Component {
     return this;
   }
 
-  toggleClass(cls) {
-    this.element.classList.toggle(cls);
-    return this;
-  }
-
   setListener(event, cb) {
     this.element.addEventListener(event, cb);
     return this;
   }
 }
 
-class Button extends Component {
-  constructor(clickHandler) {
-    super({ tag: "button", className: "btn-pref" });
-    this.setListener("click", clickHandler);
+class Widget extends Component {
+  constructor(path) {
+    super({ tag: "div", className: "pref-widget" });
+    this.path = path;
+    this.init();
+  }
+
+  async init() {
+    this.recipies = await getRecipies(this.path);
+    this.ingredients = getIngredients(this.recipies);
+    this.update();
+  }
+
+  sortIngredients() {
+    this.ingredients.sort((a, b) => !!b.preference - !!a.preference);
+  }
+
+  filterRecipies() {
+    const activePrefs = this.ingredients.reduce(
+      (acc, ingredient) => {
+        const { preference, name } = ingredient;
+        if (preference) {
+          acc[preference].push(name);
+        }
+        return acc;
+      },
+      { include: [], exclude: [] }
+    );
+
+    return this.recipies.filter(
+      (recipe) =>
+        activePrefs.include.every((ingredient) =>
+          recipe.ingredients.has(ingredient)
+        ) &&
+        activePrefs.exclude.every(
+          (ingredient) => !recipe.ingredients.has(ingredient)
+        )
+    );
+  }
+
+  update() {
+    this.element.innerHTML = "";
+    this.sortIngredients();
+    new Ingredients(this.ingredients, () => this.update()).render(this);
+    new Recipies(this.filterRecipies()).render(this);
+  }
+}
+
+class Ingredients extends Component {
+  constructor(ingredients, onChange) {
+    super({ tag: "ul", className: "pref-list" });
+    this.ingredients = ingredients;
+    this.onChange = onChange;
+    this.fill();
+  }
+
+  fill() {
+    this.ingredients.forEach((item) =>
+      new Ingredient(item, this.onChange).render(this)
+    );
   }
 }
 
@@ -129,66 +181,10 @@ class Ingredient extends Component {
   }
 }
 
-class Ingredients extends Component {
-  constructor(ingredients, onChange) {
-    super({ tag: "ul", className: "pref-list" });
-    this.ingredients = ingredients;
-    this.onChange = onChange;
-    this.fill();
-  }
-
-  fill() {
-    this.ingredients.forEach((item) =>
-      new Ingredient(item, this.onChange).render(this)
-    );
-  }
-}
-
-class Widget extends Component {
-  constructor(path) {
-    super({ tag: "div", className: "pref-widget" });
-    this.path = path;
-    this.init();
-  }
-
-  async init() {
-    this.recipies = await getRecipies(this.path);
-    this.ingredients = getIngredients(this.recipies);
-    this.update();
-  }
-
-  sortIngredients() {
-    this.ingredients.sort((a, b) => !!b.preference - !!a.preference);
-  }
-
-  filterRecipies() {
-    const activePrefs = this.ingredients.reduce(
-      (acc, ingredient) => {
-        const { preference, name } = ingredient;
-        if (preference) {
-          acc[preference].push(name);
-        }
-        return acc;
-      },
-      { include: [], exclude: [] }
-    );
-
-    return this.recipies.filter(
-      (recipe) =>
-        activePrefs.include.every((ingredient) =>
-          recipe.ingredients.has(ingredient)
-        ) &&
-        activePrefs.exclude.every(
-          (ingredient) => !recipe.ingredients.has(ingredient)
-        )
-    );
-  }
-
-  update() {
-    this.element.innerHTML = "";
-    this.sortIngredients();
-    new Ingredients(this.ingredients, () => this.update()).render(this);
-    new Recipies(this.filterRecipies()).render(this);
+class Button extends Component {
+  constructor(clickHandler) {
+    super({ tag: "button", className: "btn-pref" });
+    this.setListener("click", clickHandler);
   }
 }
 

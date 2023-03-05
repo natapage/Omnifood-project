@@ -869,3 +869,18 @@
   justify-content: center;
   gap: 8px;
 }
+
+.pref-widget {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.pref-recipie {
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: 10px 17px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+}

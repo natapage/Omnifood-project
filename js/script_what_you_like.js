@@ -2,7 +2,7 @@
 // { name, preference: "" } где preference может быть 'include' | 'exclude' | ''
 
 // getRecipies() - принимает json с рецептами и возвращает массив из объектов с рецептами
-// filterRecepies() - принимает массив из объектов рецептов и массив из ингредиентов с предпочтениями. И в зависимости от предпочтения фильтрует нужные рецепты
+// filterRecipies() - принимает массив из объектов рецептов и массив из ингредиентов с предпочтениями. И в зависимости от предпочтения фильтрует нужные рецепты
 
 // хочу чтобы работало так: клацаешь на + или - и ингредиент улетает вверх с соответствующим цветом фона( см. скриншот экрана в разделе выше).
 // потом если тыкнуть на эту кнопку уже помеченную красным или зеленым , она откинется обратно в список с несделанным выбором (где + и -)
@@ -25,29 +25,6 @@ async function getRecipies(path) {
     name,
     ingredients: new Set(ingredients.map((i) => i.name)), // меняем стуктуру данных на Set для более быстрого поиска в будущем
   }));
-}
-
-function filterRecepies(recipies, ingredients) {
-  const activePrefs = ingredients.reduce(
-    (acc, ingredient) => {
-      const { preference, name } = ingredient;
-      if (preference) {
-        acc[preference].push(name);
-      }
-      return acc;
-    },
-    { include: [], exclude: [] }
-  );
-
-  return recipies.filter(
-    (recipe) =>
-      activePrefs.include.every((ingredient) =>
-        recipe.ingredients.has(ingredient)
-      ) &&
-      activePrefs.exclude.every(
-        (ingredient) => !recipe.ingredients.has(ingredient)
-      )
-  );
 }
 
 class Component {
@@ -153,36 +130,91 @@ class Ingredient extends Component {
 }
 
 class Ingredients extends Component {
-  constructor(ingredients) {
+  constructor(ingredients, onChange) {
     super({ tag: "ul", className: "pref-list" });
     this.ingredients = ingredients;
+    this.onChange = onChange;
     this.fill();
-  }
-
-  sort() {
-    this.ingredients.sort((a, b) => !!b.preference - !!a.preference);
   }
 
   fill() {
     this.ingredients.forEach((item) =>
-      new Ingredient(item, () => this.update()).render(this)
+      new Ingredient(item, this.onChange).render(this)
+    );
+  }
+}
+
+class Widget extends Component {
+  constructor(path) {
+    super({ tag: "div", className: "pref-widget" });
+    this.path = path;
+    this.init();
+  }
+
+  async init() {
+    this.recipies = await getRecipies(this.path);
+    this.ingredients = getIngredients(this.recipies);
+    this.update();
+  }
+
+  sortIngredients() {
+    this.ingredients.sort((a, b) => !!b.preference - !!a.preference);
+  }
+
+  filterRecipies() {
+    const activePrefs = this.ingredients.reduce(
+      (acc, ingredient) => {
+        const { preference, name } = ingredient;
+        if (preference) {
+          acc[preference].push(name);
+        }
+        return acc;
+      },
+      { include: [], exclude: [] }
+    );
+
+    return this.recipies.filter(
+      (recipe) =>
+        activePrefs.include.every((ingredient) =>
+          recipe.ingredients.has(ingredient)
+        ) &&
+        activePrefs.exclude.every(
+          (ingredient) => !recipe.ingredients.has(ingredient)
+        )
     );
   }
 
   update() {
     this.element.innerHTML = "";
-    this.sort();
-    this.fill();
+    this.sortIngredients();
+    new Ingredients(this.ingredients, () => this.update()).render(this);
+    new Recipies(this.filterRecipies()).render(this);
   }
 }
 
-async function init() {
-  const recipies = await getRecipies("data.json");
-  const ingredients = getIngredients(recipies);
+class Recipies extends Component {
+  constructor(recipies) {
+    super({ tag: "ul", className: "pref-list" });
+    this.recipies = recipies;
+    this.fill();
+  }
 
-  const container = document.querySelector(".section-preferences");
-  let list = new Ingredients(ingredients);
-  list.render(container);
+  fill() {
+    this.recipies.forEach((item) => new Recipie(item).render(this));
+  }
 }
 
-init();
+class Recipie extends Component {
+  constructor(recipie) {
+    super({ tag: "li", className: "pref-recipie" });
+    new Component({
+      tag: "span",
+      content: recipie.name,
+      className: "pref-ingredient pref-ingredient__undone",
+    }).render(this);
+  }
+}
+
+const container = document.querySelector(".section-preferences");
+const widget = new Widget("data.json");
+widget.render(container);

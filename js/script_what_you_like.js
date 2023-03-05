@@ -50,10 +50,6 @@ function filterRecepies(recipies, ingredients) {
   );
 }
 
-getRecipies("data.json")
-  .then((recipes) => filterRecepies(recipes, getIngredients(recipes)))
-  .then(console.log);
-
 class Component {
   constructor(options) {
     const { tag, content, className } = options;
@@ -105,10 +101,15 @@ class Button extends Component {
 }
 
 class Ingredient extends Component {
-  constructor({ name, preference }) {
+  constructor(ingredient, onChange) {
     super({ tag: "li", className: "pref-item" });
+    this.ingredient = ingredient;
+    const { name, preference } = ingredient;
     if (preference) {
-      new Button(() => {})
+      new Button(() => {
+        this.removePreferense();
+        onChange();
+      })
         .setContent(name)
         .addClass("pref-ingredient")
         .addClass(
@@ -116,7 +117,10 @@ class Ingredient extends Component {
         )
         .render(this);
     } else {
-      new Button(() => {})
+      new Button(() => {
+        this.setExclude();
+        onChange();
+      })
         .setContent("-")
         .addClass("pref-item__exclude")
         .render(this);
@@ -125,28 +129,60 @@ class Ingredient extends Component {
         content: name,
         className: "pref-ingredient pref-ingredient__undone",
       }).render(this);
-      new Button(() => {})
+      new Button(() => {
+        this.setInclude();
+        onChange();
+      })
         .setContent("+")
         .addClass("pref-item__include")
         .render(this);
     }
   }
+
+  removePreferense() {
+    this.ingredient.preference = "";
+  }
+
+  setInclude() {
+    this.ingredient.preference = "include";
+  }
+
+  setExclude() {
+    this.ingredient.preference = "exclude";
+  }
 }
 
-const container = document.querySelector(".section-preferences");
-const list = new Component({ tag: "ul", className: "pref-list" }).render(
-  container
-);
+class Ingredients extends Component {
+  constructor(ingredients) {
+    super({ tag: "ul", className: "pref-list" });
+    this.ingredients = ingredients;
+    this.fill();
+  }
 
-async function renderList() {
-  const recipes = await getRecipies("./data.json");
-  console.log(recipes);
-  const ingredients = getIngredients(recipes);
-  ingredients[0].preference = "exclude"; // временно на позырить
-  ingredients[1].preference = "include"; // временно на позырить
-  console.log("!!!", ingredients);
+  sort() {
+    this.ingredients.sort((a, b) => !!b.preference - !!a.preference);
+  }
 
-  ingredients.forEach((item) => new Ingredient(item).render(list));
+  fill() {
+    this.ingredients.forEach((item) =>
+      new Ingredient(item, () => this.update()).render(this)
+    );
+  }
+
+  update() {
+    this.element.innerHTML = "";
+    this.sort();
+    this.fill();
+  }
 }
 
-renderList();
+async function init() {
+  const recipies = await getRecipies("data.json");
+  const ingredients = getIngredients(recipies);
+
+  const container = document.querySelector(".section-preferences");
+  let list = new Ingredients(ingredients);
+  list.render(container);
+}
+
+init();

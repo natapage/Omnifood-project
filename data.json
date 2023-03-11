@@ -14,12 +14,12 @@
     "name": "steamed salmon",
     "ingredients": [
       { "name": "salmon", "qty": 150, "unit": "g" },
-      { "name": "poatato", "qty": 100, "unit": "g" },
+      { "name": "potato", "qty": 100, "unit": "g" },
       { "name": "avocado", "qty": 30, "unit": "g" }
     ]
   },
   {
-    "name": "vagatable salad",
+    "name": "vagetable salad",
     "ingredients": [
       { "name": "cucumber", "qty": 150, "unit": "g" },
       { "name": "tomato", "qty": 100, "unit": "g" },

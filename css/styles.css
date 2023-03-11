@@ -828,13 +828,18 @@
   cursor: pointer;
   color: white;
   width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .pref-item__exclude {
   background-color: rgb(255, 81, 81);
+  font-size: 12pt;
 }
 
 .pref-item__include {
   background-color: #51cf66;
+  font-size: 12pt;
 }
 
 .pref-ingredient__undone {
@@ -879,8 +884,29 @@
 .pref-recipie {
   text-decoration: none;
   font-size: 1.8rem;
-  padding: 10px 17px;
+  padding: 16px;
   border-radius: 20px;
   border: none;
-  color: white;
+  background-color: white;
+  color: #333;
+}
+
+.pref-recipie-name {
+  font-weight: bold;
+}
+
+.pref-recipie-ingredients-list {
+  padding-top: 16px;
+  padding-left: 16px;
+  list-style-type: "⭐";
+}
+
+.pref-recipie-ingredient {
+  padding: 4px;
+  color: darkslategray;
+  border-bottom: 1px dotted darkslategray;
+}
+
+.pref-recipie-ingredient:last-of-type {
+  border-bottom: none;
 }

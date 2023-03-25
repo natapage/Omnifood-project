@@ -26,12 +26,18 @@ const getPrev = () => {
 const btnPrev = document.querySelector(".prev_2");
 const btnNext = document.querySelector(".next_2");
 
-btnPrev.onclick = () => {
+btnPrev.addEventListener("click", function () {
   mySlides.className = `mySlides2 ${getPrev()}`;
-  console.log(currentIndex);
-};
+});
 
-btnNext.onclick = () => {
+btnNext.addEventListener("click", function () {
   mySlides.className = `mySlides2 ${getNext()}`;
-  console.log(currentIndex);
-};
+});
+
+let dots = document.body.querySelector(".dots");
+
+dots.addEventListener("click", function (event) {
+  let slideNum = event.target.dataset.slide;
+  if (!slideNum) return;
+  mySlides.className = `mySlides2 slide${slideNum}`;
+});

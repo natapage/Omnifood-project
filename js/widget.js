@@ -46,7 +46,10 @@ export class Widget extends Component {
 
   update() {
     this.element.innerHTML = "";
+
     this.sortIngredients();
+    // new Screen().render(this);
+    // new Screen().render(this);
     new Ingredients(this.ingredients, () => this.update()).render(this);
     new Recipies(this.filterRecipies()).render(this);
   }

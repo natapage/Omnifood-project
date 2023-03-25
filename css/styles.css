@@ -671,7 +671,7 @@
 /* SLIDER */
 /* **************** */
 
-.mySlides1 {
+.mySlides2 {
   width: 100%;
 }
 
@@ -766,7 +766,7 @@
 
 .section-slideshow-2 {
   width: 1000px;
-  height: 500px;
+  height: 600px;
   overflow: hidden;
   position: relative;
   /* outline: 1px dotted red; */
@@ -809,11 +809,8 @@
 
 .section-preferences {
   background-color: #fdf2e9;
-  display: grid;
-  grid-template-columns: 55fr 45fr;
-  padding-bottom: 4.8rem;
-  padding-top: 4.8rem;
-  padding-left: 13rem;
+  display: flex;
+  justify-content: center;
   width: 100%;
   margin-bottom: 4.8rem;
   padding: 4.8rem;
@@ -866,7 +863,6 @@
   flex-direction: column;
   gap: 8px;
   list-style: none;
-  width: 270px;
 }
 
 .pref-item {
@@ -909,4 +905,28 @@
 
 .pref-recipie-ingredient:last-of-type {
   border-bottom: none;
+}
+
+.apology {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.phone-container {
+  position: relative;
+  width: 360px;
+  height: 720px;
+  padding: 20px;
+  border: 7px solid darkslategray;
+  border-radius: 16px;
+  overflow-y: scroll;
+}
+
+.phone-frame {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

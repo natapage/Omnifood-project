@@ -1,9 +1,10 @@
 export class Component {
   constructor(options) {
-    const { tag, content, className } = options;
+    const { tag, content, className, src } = options;
     this.element = document.createElement(tag);
     this.element.innerText = content || "";
     this.element.className = className || "";
+    this.element.src = src || "";
   }
 
   render(parent) {
